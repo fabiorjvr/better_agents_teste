@@ -6,3 +6,7 @@ pytest-asyncio
 pyyaml
 python-dotenv
 groq
+pandas
+matplotlib
+jupyter
+nest_asyncio

@@ -1,4 +1,19 @@
 {
+  "version": "1.0",
+  "_comments": [
+    "version: versão do schema do arquivo",
+    "id: identificador único (sem espaços)",
+    "name: nome legível",
+    "file: caminho relativo ao prompts.json",
+    "version: versão semântica do prompt (1.0, 1.1, 2.0)",
+    "in_production: se está sendo usado atualmente",
+    "created_at: ISO 8601 (quando foi criado)",
+    "last_updated: ISO 8601 (última mudança)",
+    "description: uma linha descrevendo o prompt",
+    "model: qual modelo LLM usa esse prompt",
+    "usage_count: quantas vezes foi usado (calculado via LangWatch)",
+    "success_rate: % de sucesso (calculado via LangWatch)"
+  ],
   "prompts": [
     {
       "id": "chatbot_system",
@@ -7,8 +22,11 @@
       "version": "1.0",
       "in_production": true,
       "created_at": "2025-12-03T11:00:00Z",
-      "description": "Prompt base do chatbot",
-      "model": "groq/llama-3.1-70b-instant"
+      "last_updated": "2025-12-03T11:00:00Z",
+      "description": "Prompt base do chatbot com suporte a Groq",
+      "model": "groq/llama-3.1-70b-instant",
+      "usage_count": 0,
+      "success_rate": 0
     }
   ]
 }

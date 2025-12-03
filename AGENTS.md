@@ -36,3 +36,30 @@ AGENTS.md
 - Rodar cenários: `pytest tests/scenarios/`
 - Avaliações: abrir `tests/evaluations/` no Jupyter
 - Sync de prompts: `better-agents prompts sync`
+
+## 📊 Dashboard LangWatch - Como Acompanhar
+
+### Acesso
+- URL: `https://app.langwatch.ai`
+- Project ID: `whatsapp-bot-prod-Q6G0lH`
+- Mensagens aparecem quando `@trace()` está ativo
+
+### 3 Telas Principais
+#### 1. Analytics
+- Requests (volume), Error Rate (< 10%), Avg Latency (< 1s)
+#### 2. Traces
+- Input/Output, Status, Latência, Tokens, Custo
+#### 3. Simulations
+- Nome do cenário, data/hora, passou/falhou, duração
+
+### Como Debugar Usando LangWatch
+1. Abra Simulations e selecione o run
+2. Revise a conversa e identifique o erro
+3. Abra o trace com falha e verifique input/output
+4. Ajuste prompt ou agente e rode pytest novamente
+
+### Métricas Para Monitorar
+- Taxa Erro: alvo < 5%
+- Latência Média: alvo < 500ms
+- Custo por chamada: alvo < $0.01
+- Uptime: alvo 99%

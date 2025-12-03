@@ -1,10 +1,62 @@
 {
-  "mcpServers": [
-    {
-      "name": "langwatch",
-      "type": "http",
-      "endpoint": "${LANGWATCH_ENDPOINT}",
-      "apiKeyEnv": "LANGWATCH_API_KEY"
+  "name": "Better Agents - ChatBot Project",
+  "description": "MCP para Better Agents com ChatBot, LangWatch e Groq",
+  "mcpServers": {
+    "better-agents-guide": {
+      "command": "echo",
+      "args": [
+        "BETTER AGENTS PADRÃO:",
+        "- /app: código dos agentes (Python)",
+        "- /tests: testes (unit + scenarios)",
+        "- /prompts: prompts em YAML versionados",
+        "- /prompts.json: registry central de prompts",
+        "- AGENTS.md: documentação e guia",
+        "TDD First: escrever testes ANTES de features"
+      ]
+    },
+    "langwatch-setup": {
+      "command": "echo",
+      "args": [
+        "LANGWATCH CONFIGURAÇÃO:",
+        "- @trace() em cada função do agente",
+        "- LANGWATCH_API_KEY e LANGWATCH_PROJECT_ID no .env",
+        "- USE_LLM=true para habilitar observabilidade",
+        "- Dashboard: app.langwatch.ai > Traces/Simulations",
+        "- Métricas importantes: latência, custo, taxa_erro"
+      ]
+    },
+    "groq-free-tier": {
+      "command": "echo",
+      "args": [
+        "GROQ FREE TIER:",
+        "- Modelo: groq/llama-3.1-70b-instant (rápido, grátis)",
+        "- Rate limit: não há limite explícito (fair use)",
+        "- Chave: GROQ_API_KEY no .env",
+        "- Usar litellm para alternância de providers",
+        "- Fallback: USE_LLM=false para modo determinístico"
+      ]
+    },
+    "new-prompt-snippet": {
+      "command": "echo",
+      "args": [
+        "NOVO PROMPT - Estrutura:",
+        "1. Crie prompts/seu_prompt.yaml",
+        "2. Add entry em prompts.json com id, version, model",
+        "3. Valide: python valida_prompts.py",
+        "4. Adicione test em tests/scenarios/test_seu_prompt.py",
+        "5. Rode: pytest tests/scenarios/ -v"
+      ]
+    },
+    "new-test-snippet": {
+      "command": "echo",
+      "args": [
+        "NOVO TESTE - Estrutura:",
+        "1. Cenário: tests/scenarios/test_seu_agente.py",
+        "2. Unit: tests/unit/test_seu_agente_fallback.py",
+        "3. Sem xfail, sem skip (passar ou falhar claro)",
+        "4. Use @trace() no agente para rastrear",
+        "5. Rode: pytest tests/ -v"
+      ]
     }
-  ]
+  }
 }
