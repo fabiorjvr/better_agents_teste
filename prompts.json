@@ -1,0 +1,10 @@
+{
+  "prompts": [
+    {
+      "id": "vegetarian_recipe_v1",
+      "path": "prompts/vegetarian_recipe.yaml",
+      "version": "1.0.0",
+      "description": "Agente de receitas vegetarianas"
+    }
+  ]
+}

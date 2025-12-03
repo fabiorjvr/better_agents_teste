@@ -1,0 +1,10 @@
+{
+  "mcpServers": [
+    {
+      "name": "langwatch",
+      "type": "http",
+      "endpoint": "${LANGWATCH_ENDPOINT}",
+      "apiKeyEnv": "LANGWATCH_API_KEY"
+    }
+  ]
+}
