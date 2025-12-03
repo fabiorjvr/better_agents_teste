@@ -14,7 +14,8 @@ def load_prompt_by_id(prompt_id: str) -> Optional[str]:
     match = next((p for p in prompts if p.get("id") == prompt_id), None)
     if not match:
         return None
-    yaml_path = Path(match.get("path", ""))
+    yaml_path_str = match.get("file") or match.get("path") or ""
+    yaml_path = Path(yaml_path_str)
     if not yaml_path.exists():
         return None
     content = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))

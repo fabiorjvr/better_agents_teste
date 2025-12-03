@@ -16,25 +16,16 @@
 - `.gitignore` proteção contra commit de segredos
 
 ## Principais Componentes
-- `app/agent.py`: RecipeAgent
+- `app/chatbot_agent.py`: ChatbotAgent
   - Carrega `.env` com `python-dotenv`
-  - Usa prompt versionado `vegetarian_recipe_v1`
-  - Sanitiza mensagens para compatibilidade com Groq removendo campos não suportados
+  - Usa prompt versionado `chatbot_system`
+  - Sanitiza mensagens para compatibilidade com Groq
   - `@trace()` para observabilidade no LangWatch
   - Fallback determinístico sem LLM para testes estáveis
-- `prompts/vegetarian_recipe.yaml` + `prompts.json`: prompt versionado e registrado
-- `tests/scenarios/test_vegetarian_recipe.py`: cenário de receita vegetariana
-  - Simula conversa e valida critérios funcionais
-  - Marcado como `xfail` para compatibilidade com Groq/Judge nativo (trace_id)
-- `tests/unit/test_agent_llm.py`: teste unitário do RecipeAgent com LLM (Groq)
-  - Passando com `groq/llama-3.1-70b-instant`
-- `app/tools/finance_api.py`: stub de retorno de ações (PETR4, VALE3, ITUB4)
-- `app/tools/whatsapp_sender.py`: stub de envio via WPPConnect
-- `app/finance_agent.py`: FinanceAgent
-  - Agenda relatório diário às 09:00, compõe resumo e simula envio WhatsApp
-  - `@trace()` e uso de stubs para custo zero
-- `tests/unit/test_financas_agent.py`: teste unitário do FinanceAgent (passando)
-- `tests/scenarios/test_whatsapp_financas.py`: cenário WhatsApp Finanças (xfail)
+- `prompts/chatbot_system.yaml` + `prompts.json`: prompt versionado e registrado
+- `tests/scenarios/test_chatbot_agent.py`: cenário simples de resposta
+- `tests/scenarios/test_chatbot_basic_response.py`: cenário simples de saudação
+- `tests/unit/test_chatbot_fallback.py`: unit test sem LLM (grátis)
 
 ## Configuração
 1. Crie `.env` baseado em `.env.example`:
@@ -70,9 +61,8 @@
 - Observabilidade first: instrumentar desde o início
 
 ## Limitações e Decisões
-- Cenários com `UserSimulatorAgent`/`JudgeAgent` nativos + Groq podem falhar por inclusão de `trace_id` nas mensagens do provider; por isso os cenários estão `xfail`.
-- Agente receita usa sanitização de mensagens e fallback determinístico para manter testes estáveis.
-- FinanceAgent usa stubs (sem custos) para finanças e WhatsApp; integração real pode ser acoplada depois.
+- Cenários foram simplificados para não depender de agentes nativos que exigem LLM.
+- ChatbotAgent usa sanitização e fallback determinístico para manter testes estáveis.
 
 ## Próximos Passos
 - Adicionar conector HTTP real para WPPConnect e cenário com mock/integração
@@ -92,6 +82,18 @@
 ## Uso de Groq e Gemini
 - Priorizar tiers grátis; alternar provider via `MODEL_NAME` e variáveis do `.env`.
 - Exemplo: `MODEL_NAME=groq/llama-3.1-70b-instant` ou `MODEL_NAME=gemini/gemini-1.5-flash`.
+
+## Groq Setup
+- Crie a conta no Groq e copie sua chave da API.
+- Configure `.env` ou `.env.example` com:
+  - `GROQ_API_KEY=sua-chave-aqui`
+  - `MODEL_NAME=groq/llama-3.1-70b-instant`
+  - `USE_LLM=true`
+- Instale dependências: `pip install -r requirements.txt`
+- Rode:
+  - Unit (sem LLM): `$env:USE_LLM="false"; pytest tests/unit/`
+  - Cenários (com Groq): `$env:USE_LLM="true"; pytest tests/scenarios/`
+- Visualize no LangWatch: configure `LANGWATCH_API_KEY` e acesse `https://app.langwatch.ai`.
 
 ## Projeto WhatsApp Finanças (Teste)
 - Objetivo: enviar diariamente às 09:00 rentabilidade de ações brasileiras via WhatsApp (WPPConnect).

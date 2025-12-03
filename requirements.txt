@@ -1,0 +1,8 @@
+langwatch
+langwatch-scenario
+litellm
+pytest
+pytest-asyncio
+pyyaml
+python-dotenv
+groq
